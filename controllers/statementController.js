@@ -8,7 +8,7 @@ import { parseCSVTransactions } from "../utils/csvParser.js";
 import { categorizeTransactions } from "../utils/categorizer.js";
 import { detectRecurringTransactions } from "../utils/recurringDetector.js";
 import { calculateFinancialHealthScore } from "../utils/financialScore.js";
-import { generateFinancialSummary } from "../services/geminiServices.js";
+import { generateFinancialSummary } from "../services/geminiservices.js";
 import { detectAnomalies } from "../utils/anomalyDetector.js";
 import { generateMonthlyAnalytics } from "../utils/monthlyAnalytics.js";
 import { generateBudgetRecommendations } from "../utils/budgetRecommendation.js";
