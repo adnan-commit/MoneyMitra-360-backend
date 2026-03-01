@@ -51,12 +51,24 @@ const limiter = rateLimit({
 app.use("/api", limiter);
 
 // 8. CORS control (important)
-app.use(cors({
-  origin: process.env.FRONTEND_URL, // Only allow frontend domain
-  credentials: true,               
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+    "http://localhost:5173",
+
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true
+  })
+);
 
 // Routes
 app.use("/api/auth", authRoutes);
