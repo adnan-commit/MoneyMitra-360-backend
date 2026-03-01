@@ -52,9 +52,8 @@ app.use("/api", limiter);
 
 // 8. CORS control (important)
 const allowedOrigins = [
-  process.env.FRONTEND_URL,
-    "http://localhost:5173",
-
+  "http://localhost:5173",
+  "https://moneymitra-360.vercel.app"
 ];
 
 app.use(
