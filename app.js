@@ -11,6 +11,8 @@ import dashboardRoutes from "./routes/dashboardRoutes.js";
 
 import authRoutes from "./routes/authRoutes.js";
 import statementRoutes from "./routes/statementRoutes.js";
+import transactionRoutes from "./routes/transactionRoutes.js";
+
 
 import { connectDB } from "./config/db.js";
 import { globalErrorHandler } from "./middleware/errorMiddleware.js";
@@ -49,17 +51,18 @@ const limiter = rateLimit({
 app.use("/api", limiter);
 
 // 8. CORS control (important)
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: process.env.FRONTEND_URL, // Only allow frontend domain
+  credentials: true,               
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/statements", statementRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/transactions", transactionRoutes);
 
 app.use(globalErrorHandler);
 
@@ -69,3 +72,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+

@@ -4,10 +4,18 @@ import multer from "multer";
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === "application/pdf" || file.mimetype === "text/csv") {
+  // Allowed MIME types
+  const allowedMimeTypes = [
+    "application/pdf",                                      // .pdf
+    "text/csv",                                             // .csv
+    "application/vnd.ms-excel",                             // .xls (Old Excel)
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" // .xlsx (New Excel/Paytm)
+  ];
+
+  if (allowedMimeTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error("Only PDF and CSV files are allowed"), false);
+    cb(new Error("Only PDF, CSV, and Excel (.xlsx, .xls) files are allowed"), false);
   }
 };
 
